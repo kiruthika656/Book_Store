@@ -1,0 +1,49 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Order History - Bookstore{% endblock %}
+
+{% block content %}
+<h2>Order History</h2>
+
+{% if orders %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>#{{ order.id }}</td>
+                        <td>{{ order.created_at|date:"F d, Y" }}</td>
+                        <td><span class="badge bg-info">{{ order.get_status_display }}</span></td>
+                        <td>${{ order.total_amount }}</td>
+                        <td>
+                            <a href="{% url 'order_detail' order.pk %}" class="btn btn-sm btn-primary">View Details</a>
+
+                            <form id="del-{{ order.id }}" action="{% url 'delete_order' order.id %}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this order?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        You haven't placed any orders yet. <a href="{% url 'book_list' %}">Start shopping!</a>
+    </div>
+{% endif %}
+{% endblock %}

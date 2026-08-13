@@ -1,0 +1,51 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Checkout - Bookstore{% endblock %}
+
+{% block content %}
+<h2>Checkout</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <h4>Order Summary</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Book</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items.all %}
+                    <tr>
+                        <td>{{ item.book.title }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.book.price }}</td>
+                        <td>${{ item.subtotal }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>${{ cart.total_price }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="col-md-4">
+        <h4>Shipping Information</h4>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="shipping_address" class="form-label">Shipping Address</label>
+                <textarea class="form-control" id="shipping_address" name="shipping_address" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Place Order</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% for order in orders %}
+    <p>
+        {{ order.name }} - {{ order.id }}
+        <form id="del-{{ order.id }}" action="{% url 'delete_order' order.id %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+    </p>
+{% endfor %}
