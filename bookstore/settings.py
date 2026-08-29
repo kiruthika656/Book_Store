@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-your-secret-key-change-in-production'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['book-store-0app.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
