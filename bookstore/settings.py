@@ -7,7 +7,9 @@ SECRET_KEY = 'django-insecure-your-secret-key-change-in-production'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['book-store-0app.onrender.com']
+ALLOWED_HOSTS = [
+    'book-store-0app.onrender.com',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -84,3 +86,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = 'book_list'
 LOGOUT_REDIRECT_URL = 'book_list'
+CSRF_TRUSTED_ORIGINS = [
+    'https://book-store-0app.onrender.com',
+]
